@@ -1,0 +1,47 @@
+<?php
+/**
+ * LibTwilio (0.0.1)
+ * Loads the Twilio PHP library and provides some helper methods for sending SMS messages.
+ *
+ * @author Netcarver
+ *
+ * ProcessWire 2.x
+ * Copyright (C) 2011 by Ryan Cramer
+ * Licensed under GNU/GPL v2, see LICENSE.TXT
+ *
+ * http://www.processwire.com
+ * http://www.ryancramer.com
+ *
+ */
+
+class LibTwilio extends WireData implements Module, ConfigurableModule {
+
+    static $client = null;
+
+	public function init() {
+	}
+
+    public function loadTwilio() {
+        if (null === self::$client) {
+            require_once __DIR__ . "/twilio-php/Services/Twilio.php";
+            self::$client = new \Services_Twilio($this->id, $this->token);
+        }
+        return true;
+    }
+
+    public function sendSMS($to, $message) {
+        if ($this->loadTwilio()) {
+            $info = array(
+                'From' => $this->from_number,
+                'To'   => $to,
+                'Body' => $message,
+            );
+            $message = self::$client->account->messages->create($info);
+
+            return $message;
+        }
+
+        return false;
+    }
+
+}
