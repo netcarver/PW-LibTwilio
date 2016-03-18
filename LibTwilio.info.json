@@ -1,0 +1,15 @@
+{
+    "title": "LibTwilio",
+    "version": "0.0.1",
+    "summary": "Loads the Twilio PHP library and provides some helper methods for sending SMS messages.",
+    "author": "Netcarver",
+    "href": "https:\/\/github.com\/twilio\/twilio-php",
+    "autoload": false,
+    "singular": true,
+    "permanent": false,
+    "requires": [
+        "PHP>=5.4.0",
+        "ProcessWire>=2.5.28",
+        ""
+    ]
+}
